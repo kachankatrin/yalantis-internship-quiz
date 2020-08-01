@@ -3,3 +3,25 @@
   margin: 10px;
   list-style: none;
 }
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, minmax(200px, 400px));
+}
+
+.gray{
+  background-color: gray;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}

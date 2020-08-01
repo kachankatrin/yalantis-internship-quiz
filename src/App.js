@@ -11,7 +11,7 @@ class App extends React.Component {
   }
   render() {
     return <div className="App">
-      <Calendar />
+      <Calendar allUsers={this.props.usersData}/>
       <AllUsers allUsers={this.props.usersData}/>
     </div>;
   }
