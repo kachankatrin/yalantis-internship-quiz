@@ -1,1 +1,4 @@
-export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_DATA = "FETCH_DATA";
+export const LIST_OF_BIRTHDAY_USERS = "LIST_OF_BIRTHDAY_USERS";
+export const MOUSE_ENTER = "MOUSE_ENTER";
+export const MOUSE_LEAVE = "MOUSE_LEAVE";

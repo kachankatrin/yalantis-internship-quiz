@@ -1,41 +1,51 @@
-import React from "react";
-import {
-  calendar,
-  listOfBirthdayUsers,
-  countOfDOB,
-  getClassColor,
-} from "../utils.js";
+import React, { useEffect } from "react";
+import { calendar, getClassColor } from "../utils.js";
 
 export default function Calendar(props) {
+  const {
+    listOfBirthdayUsers,
+    allUsers,
+    getListOfBirthdayUsers,
+    isVisible,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = props;
+  useEffect(() => {
+    calendar.map((month) => getListOfBirthdayUsers(month.id, month.month));
+  }, [allUsers, getListOfBirthdayUsers]);
+
   let classColor;
-  return (
+
+  return allUsers.length ? (
     <ul className="calendar">
-      {calendar.map((month) => (
+      {calendar.map((month, index) => (
         <li
+          id={month.id}
+          onMouseEnter={() => handleMouseEnter(index)}
+          onMouseLeave={() => handleMouseLeave(index)}
+          key={index}
           className={
             "month-container " +
-            getClassColor(
-              countOfDOB(listOfBirthdayUsers, month.id, props.allUsers),
-              classColor
-            )
+            getClassColor(listOfBirthdayUsers[month.month].length, classColor)
           }
         >
           <div>
             {month.key} {month.month}
           </div>
           {/* <props.birthdayUsers /> */}
-          <ul>
-            {props.allUsers
-              ? listOfBirthdayUsers(month.id, props.allUsers).map((item) => (
-                  <li>{item.firstName}</li>
-                ))
-              : "no users"}
-          </ul>
-          <p>
-            length: {countOfDOB(listOfBirthdayUsers, month.id, props.allUsers)}
-          </p>
+          {isVisible[index] && (
+            <ul id={month.id}>
+              {listOfBirthdayUsers[month.month].users.map((item) => (
+                <li key={item.id}>
+                  {item.firstName} {item.lastName}
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))}
     </ul>
+  ) : (
+    "Calendar is loading"
   );
 }
