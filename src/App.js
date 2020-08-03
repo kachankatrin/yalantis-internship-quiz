@@ -3,7 +3,6 @@ import "./App.css";
 import { connect } from "react-redux";
 import {
   fetchUsers,
-  getListOfBirthdayUsers,
   handleMouseEnter,
   handleMouseLeave,
 } from "./store/actions/Actions";
@@ -18,10 +17,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <Calendar
-          allUsers={this.props.usersData}
           isVisible={this.props.isVisible}
           listOfBirthdayUsers={this.props.birthdayUsers}
-          getListOfBirthdayUsers={this.props.getListOfBirthdayUsers}
           handleMouseEnter={this.props.handleMouseEnter}
           handleMouseLeave={this.props.handleMouseLeave}
         />
@@ -40,7 +37,6 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   fetchUsers,
-  getListOfBirthdayUsers,
   handleMouseEnter,
   handleMouseLeave,
 };

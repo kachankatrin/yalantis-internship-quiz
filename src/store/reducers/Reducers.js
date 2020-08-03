@@ -1,39 +1,31 @@
 import {
   FETCH_DATA,
-  LIST_OF_BIRTHDAY_USERS,
   MOUSE_ENTER,
   MOUSE_LEAVE,
 } from "../actions/ActionsConstants";
+import { calendar } from "../../utils";
 
 const initStore = {
   usersData: [],
   listOfBDUsers: [],
   isVisible: {},
+  calendar: calendar,
 };
 
 export const mainReducer = (initialState = initStore, action) => {
   if (action.type === FETCH_DATA) {
     return {
       ...initialState,
-      usersData: action.payload,
-    };
-  }
-  if (action.type === LIST_OF_BIRTHDAY_USERS) {
-    return {
-      ...initialState,
-      listOfBDUsers: {
-        ...initialState.listOfBDUsers,
-
-        [action.payload.key]: {
-          users: initialState.usersData.filter((item) =>
-            item.dob.includes(`-${action.payload.value}-`)
-          ),
-          length: initialState.usersData.filter((item) =>
-            item.dob.includes(`-${action.payload.value}-`)
-          ).length,
-          id: action.payload.value,
-        },
-      },
+      usersData: action.payload.json,
+      listOfBDUsers: initialState.calendar.map((item, index) => {
+        return {
+          [item.month]: {
+            users: action.payload.json.filter(
+              (item) => new Date(item.dob).getMonth() === index
+            ),
+          },
+        };
+      }),
     };
   }
   if (action.type === MOUSE_ENTER) {
